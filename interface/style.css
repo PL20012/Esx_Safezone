@@ -1,0 +1,439 @@
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: transparent;
+    font-family: 'Kanit', sans-serif;
+    overflow: hidden;
+}
+
+.ui-center-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 10001;
+    -webkit-mask-image: linear-gradient(to right,
+        transparent 0%, rgba(0,0,0,0.1) 4%, rgba(0,0,0,0.5) 10%,
+        rgba(0,0,0,1) 18%, rgba(0,0,0,1) 82%, rgba(0,0,0,0.5) 90%,
+        rgba(0,0,0,0.1) 96%, transparent 100%);
+    mask-image: linear-gradient(to right,
+        transparent 0%, rgba(0,0,0,0.1) 4%, rgba(0,0,0,0.5) 10%,
+        rgba(0,0,0,1) 18%, rgba(0,0,0,1) 82%, rgba(0,0,0,0.5) 90%,
+        rgba(0,0,0,0.1) 96%, transparent 100%);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+}
+
+.ui-center-container.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.ui-center-container.hide {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -50%) scale(0.85);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.banner-center {
+    width: 100%;
+    padding: 10px 18px;
+    background: rgba(8, 8, 12, 0.75);
+    border-radius: 5px;
+    border: 1px solid rgba(83, 177, 241, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    box-shadow: 0 8px 40px -8px rgba(0, 0, 0, 0.6);
+}
+
+/* ===== Check Icon (Center) ===== */
+.check-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.check-icon .circle-bg {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2.5px solid rgba(83, 177, 241, 0.08);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.check-icon .circle-border {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2.5px solid rgba(83, 177, 241, 0.50);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    clip-path: inset(0 50% 0 0);
+    animation: drawCircleHalf 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.check-icon .circle-border::after {
+    content: '';
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2.5px solid rgba(83, 177, 241, 0.50);
+    top: 0;
+    left: 0;
+    clip-path: inset(0 0 0 50%);
+    animation: drawCircleHalf2 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+    opacity: 0;
+}
+
+@keyframes drawCircleHalf {
+    0%   { clip-path: inset(0 100% 0 0); opacity: 0.3; }
+    100% { clip-path: inset(0 50% 0 0);  opacity: 1; }
+}
+
+@keyframes drawCircleHalf2 {
+    0%   { clip-path: inset(0 0 0 100%); opacity: 0; }
+    100% { clip-path: inset(0 0 0 50%);  opacity: 1; }
+}
+
+.check-icon .checkmark {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.check-icon .checkmark svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.check-icon .checkmark .tick-path {
+    fill: none;
+    stroke: #53b1f1;
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 30;
+    stroke-dashoffset: 30;
+    animation: drawCheck 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
+    filter: drop-shadow(0 0 15px rgba(83, 177, 241, 0.25));
+}
+
+@keyframes drawCheck {
+    0%   { stroke-dashoffset: 30; opacity: 0; }
+    100% { stroke-dashoffset: 0;  opacity: 1; }
+}
+
+.check-icon .glow-pulse {
+    animation: pulseGlow 2.5s ease-in-out infinite 1.5s;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { filter: drop-shadow(0 0 5px rgba(83, 177, 241, 0.1)); }
+    50%      { filter: drop-shadow(0 0 25px rgba(83, 177, 241, 0.30)); }
+}
+
+/* ===== Text (Center) ===== */
+.text-main {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px;
+    line-height: 1.4;
+    background: linear-gradient(135deg, #ffffff 60%, rgba(83, 177, 241, 0.4));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmerText 4s ease-in-out infinite;
+}
+
+.text-main .highlight {
+    background: linear-gradient(135deg, #53b1f1, #7ac4ff, #53b1f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    background-size: 200% 200%;
+    animation: gradientMove 4s ease-in-out infinite;
+}
+
+.sub-text {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.30);
+    font-weight: 300;
+    letter-spacing: 0.8px;
+    margin-top: 2px;
+    display: flex;
+    gap: 2px;
+    flex-wrap: wrap;
+    animation: fadePulse 3s ease-in-out infinite;
+}
+
+@keyframes shimmerText {
+    0%, 100% { opacity: 1; letter-spacing: 0.5px; }
+    50%      { opacity: 0.95; letter-spacing: 0.8px; }
+}
+
+@keyframes gradientMove {
+    0%, 100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+}
+
+@keyframes fadePulse {
+    0%, 100% { opacity: 0.7; letter-spacing: 0.8px; }
+    50%      { opacity: 1; letter-spacing: 1.2px; }
+}
+
+
+.ui-top-container {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.92) translateY(-10px);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: rgba(8, 8, 12, 0.55);
+    border-radius: 5px;
+    border: 1px solid rgba(83, 177, 241, 0.06);
+    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10000;
+    -webkit-mask-image: linear-gradient(to right,
+        transparent 0%, rgba(0,0,0,0.1) 4%, rgba(0,0,0,0.5) 10%,
+        rgba(0,0,0,1) 18%, rgba(0,0,0,1) 82%, rgba(0,0,0,0.5) 90%,
+        rgba(0,0,0,0.1) 96%, transparent 100%);
+    mask-image: linear-gradient(to right,
+        transparent 0%, rgba(0,0,0,0.1) 4%, rgba(0,0,0,0.5) 10%,
+        rgba(0,0,0,1) 18%, rgba(0,0,0,1) 82%, rgba(0,0,0,0.5) 90%,
+        rgba(0,0,0,0.1) 96%, transparent 100%);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+}
+
+.ui-top-container.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1) translateY(0);
+}
+
+.ui-top-container.hide {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) scale(0.92) translateY(-15px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== Check Icon (Small) ===== */
+.check-small {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.check-small .circle-bg {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid rgba(83, 177, 241, 0.06);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.check-small .circle-border {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid rgba(83, 177, 241, 0.35);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    clip-path: inset(0 50% 0 0);
+    animation: drawCircleHalfSmall 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.check-small .circle-border::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid rgba(83, 177, 241, 0.35);
+    top: 0;
+    left: 0;
+    clip-path: inset(0 0 0 50%);
+    animation: drawCircleHalfSmall2 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+    opacity: 0;
+}
+
+@keyframes drawCircleHalfSmall {
+    0%   { clip-path: inset(0 100% 0 0); opacity: 0.3; }
+    100% { clip-path: inset(0 50% 0 0);  opacity: 1; }
+}
+
+@keyframes drawCircleHalfSmall2 {
+    0%   { clip-path: inset(0 0 0 100%); opacity: 0; }
+    100% { clip-path: inset(0 0 0 50%);  opacity: 1; }
+}
+
+.check-small .checkmark {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.check-small .checkmark svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.check-small .checkmark .tick-path {
+    fill: none;
+    stroke: #53b1f1;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 20;
+    stroke-dashoffset: 20;
+    animation: drawCheckSmall 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+    filter: drop-shadow(0 0 10px rgba(83, 177, 241, 0.15));
+}
+
+@keyframes drawCheckSmall {
+    0%   { stroke-dashoffset: 20; opacity: 0; }
+    100% { stroke-dashoffset: 0;  opacity: 1; }
+}
+
+.check-small .glow-pulse {
+    animation: pulseGlowSmall 2.5s ease-in-out infinite 1.2s;
+}
+
+@keyframes pulseGlowSmall {
+    0%, 100% { filter: drop-shadow(0 0 3px rgba(83, 177, 241, 0.05)); }
+    50%      { filter: drop-shadow(0 0 15px rgba(83, 177, 241, 0.20)); }
+}
+
+/* ===== Text (Top) ===== */
+.text-top {
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-wrap: wrap;
+    line-height: 1.3;
+    background: linear-gradient(135deg, #ffffff 70%, rgba(83, 177, 241, 0.3));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmerText 5s ease-in-out infinite;
+}
+
+.text-top .highlight {
+    background: linear-gradient(135deg, #53b1f1, #7ac4ff, #53b1f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 500;
+    background-size: 200% 200%;
+    animation: gradientMove 5s ease-in-out infinite;
+}
+
+.text-top .sub {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 10px;
+    margin-left: 3px;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.25);
+    animation: fadePulse 3.5s ease-in-out infinite;
+}
+
+
+@media (max-width: 600px) {
+    .ui-center-container { width: 250px; }
+    .banner-center       { padding: 8px 14px; gap: 10px; }
+    .text-main           { font-size: 14px; }
+    .check-icon          { width: 30px; height: 30px; }
+    .check-icon .circle-bg,
+    .check-icon .circle-border,
+    .check-icon .circle-border::after { width: 28px; height: 28px; }
+    .check-icon .checkmark { width: 18px; height: 18px; }
+    .sub-text            { font-size: 9px; }
+    .ui-top-container    { top: 60px; padding: 5px 12px; gap: 6px; }
+    .text-top            { font-size: 11px; }
+    .check-small         { width: 16px; height: 16px; }
+    .check-small .circle-bg,
+    .check-small .circle-border,
+    .check-small .circle-border::after { width: 14px; height: 14px; }
+    .check-small .checkmark { width: 11px; height: 11px; }
+}
+
+@media (max-width: 400px) {
+    .ui-center-container { width: 200px; }
+    .banner-center       { padding: 6px 12px; gap: 8px; }
+    .text-main           { font-size: 12px; }
+    .check-icon          { width: 26px; height: 26px; }
+    .check-icon .circle-bg,
+    .check-icon .circle-border,
+    .check-icon .circle-border::after { width: 24px; height: 24px; }
+    .check-icon .checkmark { width: 15px; height: 15px; }
+    .sub-text            { font-size: 8px; }
+    .ui-top-container    { top: 50px; padding: 4px 10px; gap: 5px; }
+    .text-top            { font-size: 10px; }
+    .check-small         { width: 14px; height: 14px; }
+    .check-small .circle-bg,
+    .check-small .circle-border,
+    .check-small .circle-border::after { width: 12px; height: 12px; }
+    .check-small .checkmark { width: 9px; height: 9px; }
+}

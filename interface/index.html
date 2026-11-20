@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeZone UI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="center-ui" class="ui-center-container">
+        <div class="banner-center">
+            <div class="check-icon">
+                <div class="circle-bg"></div>
+                <div class="circle-border"></div>
+                <div class="checkmark glow-pulse">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <polyline class="tick-path" points="4,12 9,17 20,6"/>
+                    </svg>
+                </div>
+            </div>
+            <div>
+                <div class="text-main" id="zone-name-center"></div>
+                <div class="sub-text" id="sub-text-center"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="top-ui" class="ui-top-container">
+        <div class="check-small">
+            <div class="circle-bg"></div>
+            <div class="circle-border"></div>
+            <div class="checkmark glow-pulse">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <polyline class="tick-path" points="4,12 9,17 20,6"/>
+                </svg>
+            </div>
+        </div>
+        <span class="text-top" id="zone-name-top"></span>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
